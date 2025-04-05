@@ -31,8 +31,6 @@ export const getRankIcon = (iconName: string, className: string = '') => {
   switch (iconName) {
     case 'Crown':
       return <Crown className={`${className}`} />;
-    case 'Award':
-      return <Award className={`${className}`} />;
     case 'Shield':
       return <Shield className={`${className}`} />;
     case 'Star':
