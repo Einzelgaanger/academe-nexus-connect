@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { RankInfo } from '@/types';
 import { Award, Crown, Fire, Shield, Star } from 'lucide-react';
 
