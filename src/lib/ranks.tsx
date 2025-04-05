@@ -1,11 +1,13 @@
 
 import React from 'react';
 import { RankInfo } from '@/types';
-import { Award, Crown, Fire, Shield, Star } from 'lucide-react';
+import { Award, Star } from 'lucide-react';
+import { Shield } from 'lucide-react';
+import { Crown } from 'lucide-react';
 
 export const RANKS: RankInfo[] = [
   { title: 'Celestial Champion', minPoints: 400, icon: 'Crown', color: 'text-yellow-500' },
-  { title: 'Phoenix Prodigy', minPoints: 250, icon: 'Fire', color: 'text-red-500' },
+  { title: 'Phoenix Prodigy', minPoints: 250, icon: 'Award', color: 'text-red-500' },
   { title: 'Eternal Guardian', minPoints: 150, icon: 'Shield', color: 'text-blue-500' },
   { title: 'Cosmic Intellect', minPoints: 100, icon: 'Star', color: 'text-purple-500' },
   { title: 'Galactic Sage', minPoints: 75, icon: 'Award', color: 'text-green-500' },
@@ -29,8 +31,8 @@ export const getRankIcon = (iconName: string, className: string = '') => {
   switch (iconName) {
     case 'Crown':
       return <Crown className={`${className}`} />;
-    case 'Fire':
-      return <Fire className={`${className}`} />;
+    case 'Award':
+      return <Award className={`${className}`} />;
     case 'Shield':
       return <Shield className={`${className}`} />;
     case 'Star':

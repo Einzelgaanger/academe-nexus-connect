@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -83,7 +82,7 @@ const UnitContent = () => {
           // Get creator info
           const { data: creatorData } = await supabase
             .from('users')
-            .select('full_name')
+            .select('full_name, points')
             .eq('id', content.created_by)
             .single();
           
@@ -102,6 +101,7 @@ const UnitContent = () => {
           return {
             ...content,
             creator_name: creatorData?.full_name || 'Unknown',
+            created_by_points: creatorData?.points || 0,
             likes: likesData || [],
             comments_count: commentsCount || 0
           };
@@ -338,6 +338,15 @@ const UnitContent = () => {
         .eq('user_id', user.id)
         .single();
       
+      // Get the creator's current points
+      const { data: creatorData } = await supabase
+        .from('users')
+        .select('points')
+        .eq('id', content.created_by)
+        .single();
+        
+      const creatorPoints = creatorData?.points || 0;
+      
       if (existingLike) {
         // If the action is the same, remove the like/dislike
         if ((existingLike.is_like && isLike) || (!existingLike.is_like && !isLike)) {
@@ -353,7 +362,7 @@ const UnitContent = () => {
           const pointsAdjustment = existingLike.is_like ? -1 : 1;
           const { error: creatorPointsError } = await supabase
             .from('users')
-            .update({ points: (content.created_by_points || 0) + pointsAdjustment })
+            .update({ points: creatorPoints + pointsAdjustment })
             .eq('id', content.created_by);
             
           if (creatorPointsError) throw creatorPointsError;
@@ -370,7 +379,7 @@ const UnitContent = () => {
           const pointsAdjustment = isLike ? 2 : -2;
           const { error: creatorPointsError } = await supabase
             .from('users')
-            .update({ points: (content.created_by_points || 0) + pointsAdjustment })
+            .update({ points: creatorPoints + pointsAdjustment })
             .eq('id', content.created_by);
             
           if (creatorPointsError) throw creatorPointsError;
@@ -391,7 +400,7 @@ const UnitContent = () => {
         const pointsAdjustment = isLike ? 1 : -1;
         const { error: creatorPointsError } = await supabase
           .from('users')
-          .update({ points: (content.created_by_points || 0) + pointsAdjustment })
+          .update({ points: creatorPoints + pointsAdjustment })
           .eq('id', content.created_by);
           
         if (creatorPointsError) throw creatorPointsError;

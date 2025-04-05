@@ -9,7 +9,165 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      class_instances: {
+        Row: {
+          admin_admission: string
+          admin_name: string
+          admin_password: string
+          content: Json
+          country: string
+          course: string
+          created_at: string | null
+          group_name: string
+          id: number
+          program: string
+          semester: string
+          students: Json
+          super_admin_admission: string
+          super_admin_name: string
+          super_admin_password: string
+          units: string[]
+          university: string
+          updated_at: string | null
+          year: number
+        }
+        Insert: {
+          admin_admission?: string
+          admin_name?: string
+          admin_password?: string
+          content?: Json
+          country?: string
+          course: string
+          created_at?: string | null
+          group_name: string
+          id?: number
+          program?: string
+          semester: string
+          students: Json
+          super_admin_admission?: string
+          super_admin_name?: string
+          super_admin_password?: string
+          units: string[]
+          university?: string
+          updated_at?: string | null
+          year: number
+        }
+        Update: {
+          admin_admission?: string
+          admin_name?: string
+          admin_password?: string
+          content?: Json
+          country?: string
+          course?: string
+          created_at?: string | null
+          group_name?: string
+          id?: number
+          program?: string
+          semester?: string
+          students?: Json
+          super_admin_admission?: string
+          super_admin_name?: string
+          super_admin_password?: string
+          units?: string[]
+          university?: string
+          updated_at?: string | null
+          year?: number
+        }
+        Relationships: []
+      }
+      content: {
+        Row: {
+          class_instance_id: number
+          content_type: string
+          created_at: string | null
+          created_by: number
+          deadline: string | null
+          description: string | null
+          file_path: string | null
+          id: number
+          title: string
+          unit_name: string
+          updated_at: string | null
+          url: string | null
+        }
+        Insert: {
+          class_instance_id: number
+          content_type: string
+          created_at?: string | null
+          created_by: number
+          deadline?: string | null
+          description?: string | null
+          file_path?: string | null
+          id?: number
+          title: string
+          unit_name: string
+          updated_at?: string | null
+          url?: string | null
+        }
+        Update: {
+          class_instance_id?: number
+          content_type?: string
+          created_at?: string | null
+          created_by?: number
+          deadline?: string | null
+          description?: string | null
+          file_path?: string | null
+          id?: number
+          title?: string
+          unit_name?: string
+          updated_at?: string | null
+          url?: string | null
+        }
+        Relationships: []
+      }
+      users: {
+        Row: {
+          admission_number: string
+          class_instance_id: number
+          created_at: string | null
+          email: string | null
+          full_name: string
+          id: number
+          is_using_default_password: boolean | null
+          password_hash: string
+          phone: string | null
+          points: number | null
+          profile_picture: string | null
+          role: string
+          updated_at: string | null
+        }
+        Insert: {
+          admission_number: string
+          class_instance_id: number
+          created_at?: string | null
+          email?: string | null
+          full_name: string
+          id?: number
+          is_using_default_password?: boolean | null
+          password_hash: string
+          phone?: string | null
+          points?: number | null
+          profile_picture?: string | null
+          role: string
+          updated_at?: string | null
+        }
+        Update: {
+          admission_number?: string
+          class_instance_id?: number
+          created_at?: string | null
+          email?: string | null
+          full_name?: string
+          id?: number
+          is_using_default_password?: boolean | null
+          password_hash?: string
+          phone?: string | null
+          points?: number | null
+          profile_picture?: string | null
+          role?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

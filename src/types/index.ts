@@ -51,11 +51,13 @@ export interface Content {
   class_instance_id: number;
   unit_name: string;
   created_by: number;
+  created_by_points?: number;
   deadline?: string;
   created_at: string;
   updated_at: string;
   comments?: Comment[];
   likes?: Like[];
+  comments_count?: number;
   creator_name?: string;
 }
 
