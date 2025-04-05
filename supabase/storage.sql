@@ -5,17 +5,24 @@ VALUES ('content-files', 'Content Files', true, false, 50000000, '{image/png,ima
 ON CONFLICT (id) DO NOTHING;
 
 -- Allow public read access to content files
-INSERT INTO storage.policies (name, definition, bucket_id)
-VALUES (
-  'Public Read Access',
-  '(bucket_id = ''content-files''::text)',
-  'content-files'
-) ON CONFLICT (name, bucket_id) DO NOTHING;
+CREATE POLICY "Public Read Access" ON storage.objects
+FOR SELECT 
+USING (bucket_id = 'content-files');
 
 -- Allow authenticated users to upload files
-INSERT INTO storage.policies (name, definition, bucket_id)
-VALUES (
-  'Authenticated Upload Access',
-  '(bucket_id = ''content-files''::text AND auth.role() = ''authenticated'')',
-  'content-files'
-) ON CONFLICT (name, bucket_id) DO NOTHING;
+CREATE POLICY "Authenticated Upload Access" ON storage.objects
+FOR INSERT 
+TO authenticated
+WITH CHECK (bucket_id = 'content-files');
+
+-- Allow authenticated users to update their own files
+CREATE POLICY "Authenticated Update Access" ON storage.objects
+FOR UPDATE 
+TO authenticated
+USING (bucket_id = 'content-files');
+
+-- Allow authenticated users to delete their own files
+CREATE POLICY "Authenticated Delete Access" ON storage.objects
+FOR DELETE 
+TO authenticated
+USING (bucket_id = 'content-files');
