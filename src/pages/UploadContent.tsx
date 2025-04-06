@@ -101,19 +101,26 @@ const UploadContent = () => {
         const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
         const fullPath = `${user.id}/${fileName}`;
         
-        // Upload to Supabase Storage
-        const { data, error } = await supabase.storage
-          .from('content-files')
-          .upload(fullPath, file, {
-            cacheControl: '3600',
-            upsert: false,
-            onUploadProgress: (progress) => {
-              const calculatedProgress = (progress.loaded / progress.total) * 100;
-              setUploadProgress(calculatedProgress);
-            },
-          });
+        // Set up upload with progress tracking
+        const uploadTask = async () => {
+          // Perform upload
+          const { data, error } = await supabase.storage
+            .from('content-files')
+            .upload(fullPath, file, {
+              cacheControl: '3600',
+              upsert: false
+            });
+          
+          if (error) throw error;
+          return data;
+        };
         
-        if (error) throw error;
+        // Track progress manually since onUploadProgress isn't available
+        setUploadProgress(10); // Start progress
+        
+        const data = await uploadTask();
+        
+        setUploadProgress(100); // Complete progress
         
         filePath = fullPath;
       }
