@@ -1,73 +1,84 @@
-# Welcome to your Lovable project
 
-## Project info
+# Stratizens - Educational Platform
 
-**URL**: https://lovable.dev/projects/860943cb-4180-42c7-9528-245db7883165
+Stratizens is a web application for Strathmore University students to access course materials, participate in discussions, and collaborate with peers and lecturers.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- User authentication for students, lecturers, and super admins
+- Unit-specific content management (notes, assignments, past papers)
+- File uploads to Supabase Storage
+- Comments and likes on content
+- Points and ranking system for engagement
+- Profile management
+- Responsive design
 
-**Use Lovable**
+## Tech Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/860943cb-4180-42c7-9528-245db7883165) and start prompting.
+- React with TypeScript
+- Tailwind CSS for styling
+- Shadcn UI components
+- React Router for navigation
+- Tanstack React Query for data fetching
+- Supabase for backend, storage, and database
 
-Changes made via Lovable will be committed automatically to this repo.
+## Deployment Guide for Render
 
-**Use your preferred IDE**
+1. **Create a Render account**: Sign up at [render.com](https://render.com)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+2. **Create a new Web Service**:
+   - Click "New" and select "Web Service"
+   - Connect your GitHub repository
+   - Name your service, e.g., "stratizens"
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+3. **Configure the build settings**:
+   - Build Command: `npm install && npm run build`
+   - Start Command: `npm run serve`
+   - Environment: Node
+   - Node Version: 18 (or latest LTS)
 
-Follow these steps:
+4. **Set environment variables**:
+   - Add the following environment variables:
+     - `VITE_SUPABASE_URL`: Your Supabase project URL
+     - `VITE_SUPABASE_ANON_KEY`: Your Supabase anonymous key
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+5. **Deploy the service**:
+   - Click "Create Web Service"
+   - Wait for the build and deployment to complete
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+6. **Set up the database**:
+   - Log in to your Supabase dashboard
+   - Navigate to the SQL Editor
+   - Create a new query
+   - Paste the contents of the `supabase/schema.sql` file
+   - Run the query to set up the database schema
 
-# Step 3: Install the necessary dependencies.
-npm i
+7. **Configure Storage Buckets**:
+   - In your Supabase dashboard, go to Storage
+   - Make sure the following buckets are created:
+     - `content-files`
+     - `profile-pictures` 
+     - `announcement-media`
+   - Check that the bucket policies allow public access for reading and authenticated access for writing
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+8. **Update your Supabase settings**:
+   - Go to Authentication → URL Configuration
+   - Add your Render deployment URL to the Site URL and Redirect URLs
 
-**Edit a file directly in GitHub**
+## Local Development
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Create a `.env` file with the following variables:
+   ```
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+4. Run the development server: `npm run dev`
+5. Open [http://localhost:5173](http://localhost:5173) in your browser
 
-**Use GitHub Codespaces**
+## Login Instructions
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/860943cb-4180-42c7-9528-245db7883165) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes it is!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- Use any admission number from the database and any password (authentication is simulated for demo purposes)
+- Default super admin: `000000`
+- Default admin: `000001` 
