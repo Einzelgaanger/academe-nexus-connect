@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [classInstance, setClassInstance] = useState<ClassInstance | null>(null);
   const [loading, setLoading] = useState(true);
+  // Now useNavigate will work since AuthProvider is inside BrowserRouter
   const navigate = useNavigate();
 
   // Initialize auth state
